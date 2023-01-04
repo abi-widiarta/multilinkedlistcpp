@@ -167,8 +167,73 @@ address_c findElement(List_c L, infotype_c x) {
          };
          P = next(P);
     };
-    return NULL;;
+    return NULL;
 };
+
+address_c findNopol(List_c L, infotype_c x){
+    address_c P = first(L);
+    while (P!=NULL) {
+        if(info(P).nopol == x.nopol){
+            return P;
+        }
+        P = next(P);
+    }
+    return NULL;
+};
+
+void deleteMiddle(List_c &L, address_c &x){
+    if(first(L) == NULL){
+        cout << "List Kosong" << endl;
+    }else{
+        address_c pertama = first(L);
+        address_c kedua = first(L);
+        while(next(pertama) != x){
+            pertama = next(pertama);
+        }
+        kedua = pertama;
+        pertama = next(next(pertama));
+        next(kedua) = pertama;
+        next(x) = NULL;
+    }
+}
+
+void deleteLast(List_c &L, address_c &P){
+    address_c p = first(L);
+    if(first(L) == NULL){
+        cout << "List kosong" << endl;
+    }else if(next(p) == NULL){
+        first(L) = NULL;
+    }else{
+        while(next(next(p)) != NULL){
+            p = next(p);
+        }
+        next(p) = NULL;
+    }
+}
+
+void deleteDriver(List_c &L, address_c &P, infotype_c x){
+    address_c Q = first(L);
+    if(first(L) == NULL){
+        cout << "Driver tidak ditemukan" <<endl;
+    }else{
+        while(Q != NULL){
+            if(info(Q).nama == x.nama){
+                if(Q == first(L)){
+                    disconnect(Q);
+                    deleteFirst(L, P);
+                }else if(next(Q) == NULL){
+                    disconnect(Q);
+                    deleteMiddle(L, P);
+                }else{
+                    disconnect(Q);
+                    deleteLast(L, P);
+                }
+            }
+            P = next(P);
+        }
+    }
+};
+
 
 // FOR RELASI
 

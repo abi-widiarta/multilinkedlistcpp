@@ -19,3 +19,13 @@
 1672763919 source:c:\users\user\onedrive\desktop\tubes\tubes.cpp
 	"tubes.h"
 
+1672827843 source:d:\code\c++\tubesstd\main.cpp
+	"tubes.h"
+	<iostream>
+
+1672831453 d:\code\c++\tubesstd\tubes.h
+	<iostream>
+
+1672831253 source:d:\code\c++\tubesstd\tubes.cpp
+	"tubes.h"
+
