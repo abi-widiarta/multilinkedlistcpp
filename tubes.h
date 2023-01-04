@@ -29,6 +29,8 @@ address_p alokasiP(infotype_p x);
 void insertFirst(List_p &L, address_p P);
 void deleteFirst(List_p &L, address_p &P);
 void printInfo(List_p L);
+void deleteLast(List_p &LP, address_p &P);
+void deleteMiddle(List_p &L, address_p &x);
 address_p findElement(List_p L, infotype_p x);
 
 // FOR CHILD
@@ -58,9 +60,10 @@ void printInfo(List_c L);
 address_c findElement(List_c L, infotype_c x);
 
 // FOR RELASI
+bool checkParent(List_p L);
 void connect(address_p &P, address_c &C);
 void disconnect(address_c &C);
-void printRelasi(List_p LP, List_c LC);
+void printRelasi(List_p LP, List_c LC,address_p P);
 
 
 // FOR MENU
@@ -71,5 +74,8 @@ void countChild(List_c LC);
 void countMax(List_p LP, List_c LC);
 void countMin(List_p LP, List_c LC);
 bool findParentChild(List_p LP,List_c LC);
+
+void deleteFirstParent(List_p &LP, List_c &LC, address_p &P);
+void deleteKecematan(List_p &LP, List_c &LC, address_p &P, infotype_p x);
 
 #endif // TUBES_H_INCLUDED

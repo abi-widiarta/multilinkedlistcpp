@@ -42,7 +42,7 @@ void printInfo(List_p L) {
              i++;
          };
      }
-     cout<<endl<<endl;
+     cout<<endl;
 };
 
 address_p findElement(List_p L, infotype_p x) {
@@ -53,8 +53,67 @@ address_p findElement(List_p L, infotype_p x) {
          };
          P = next(P);
     };
-    return NULL;;
+    return NULL;
 };
+
+void deleteFirstParent(List_p &LP, List_c &LC, address_p &P){
+    address_c c = first(LC);
+    while(c != NULL){
+        if(parent(c) == first(LP)){
+            parent(c) = NULL;
+        }
+        c = next(c);
+    }
+    deleteFirst(LP,P);
+}
+
+void deleteLast(List_p &L, address_p &P){
+    address_p p = first(L);
+    if(first(L) == NULL){
+        cout << "List kosong" << endl;
+    }else if(next(p) == NULL){
+        first(L) = NULL;
+    }else{
+        while(next(next(p)) != NULL){
+            p = next(p);
+        }
+        next(p) = NULL;
+    }
+}
+
+void deleteMiddle(List_p &L, address_p &x){
+    if(first(L) == NULL){
+        cout << "List Kosong" << endl;
+    }else{
+        address_p pertama = first(L);
+        address_p kedua = first(L);
+        while(next(pertama) != x){
+            pertama = next(pertama);
+        }
+        kedua = pertama;
+        pertama = next(next(pertama));
+        next(kedua) = pertama;
+        next(x) = NULL;
+    }
+}
+
+void deleteKecematan(List_p &LP, List_c &LC, address_p &P, infotype_p x){
+    address_p target = findElement(LP, x);
+    address_c c = first(LC);
+    while(c != NULL){
+        if(parent(c) == target){
+            parent(c) = NULL;
+        }
+        c = next(c);
+    }
+    if(target == first(LP)){
+        deleteFirst(LP, P);
+    }else if(next(target) == NULL){
+        deleteLast(LP, P);
+    }else{
+        deleteMiddle(LP, target);
+    }
+}
 
 
 // FOR CHILD
@@ -125,45 +184,49 @@ void disconnect(address_c &C) {
     }
 }
 
-void printRelasi(List_p LP, List_c LC) {
-    address_p P;
-    address_c C;
-
-    P = first(LP);
-    cout << "   === List Relasi" << endl << endl;
-    while(P!= NULL) {
-        cout << "      Kecamatan : " << info(P) << endl;
-        cout << "   Nama Driver \tTempat Tinggal" << endl;
-        C = first(LC);
+void printRelasi(List_p LP, List_c LC,address_p P) {
+    address_c C = first(LC);
+    cout << "=== Kecamatan " << info(P) << endl;
+    bool adaDriver = false;
+    int i =1;
         while(C!=NULL) {
             if(parent(C) == P) {
-                cout << "   ";
-                cout << info(C).nama << "\t";
-                cout << info(C).tempatTinggal << endl;
+                adaDriver = true;
+                cout << i << ".";
+                cout << " Nama Driver    : " << info(C).nama << endl;
+                cout << "   Tempat Tinggal : " << info(C).tempatTinggal << endl;
+                i++;
             }
             C = next(C);
         }
-        cout << endl << endl;
-        P = next(P);
-    }
-    cout << endl;
+
+        if(!adaDriver) {
+            cout << "Tidak Ada Driver" << endl;
+        }
+
+        cout << "===" << endl;
 }
+
+bool checkParent(List_p L){
+    return first(L) == NULL;
+};
 
 // FOR MENU
 
 int selectMenu_1301213196() {
-    cout << "========================= JASA TRANSPORTASI =====================" << endl;
-    cout << "=============================== MENU ============================" << endl;
+    cout << "================= JASA TRANSPORTASI ================" << endl;
+    cout << "======================= MENU =======================" << endl;
     cout << "+ 1. Tambah Kecamatan." << endl;
     cout << "+ 2. Tambah Driver." << endl;
     cout << "+ 3. Tampilkan Kecamatan." << endl;
     cout << "+ 4. Tampilkan Driver." << endl;
-    cout << "+ 5. Menghapus data (parent) beserta relasinya (child-nya)." << endl;
-    cout << "+ 6. Menghitung jumlah data pada kecamatan dan setiap drivernya." << endl;
-    cout << "+ 7. Menampilkan jumlah driver paling banyak di suatu kecamatan." << endl;
-    cout << "+ 8. Menampilkan jumlah driver paling sedikit di suatu kecamatan." << endl;
+    cout << "+ 5. Hapus Kecamatan" << endl;
+    cout << "+ 6. Tampilkan Jumlah Data Kecamatan Dan Driver" << endl;
+    cout << "+ 7. Kecamatan Dengan Driver Paling Banyak" << endl;
+    cout << "+ 8. Kecamatan Dengan Driver Paling Sedikit" << endl;
+    cout << "+ 9. Tampilkan Driver Berdasarkan Tempat Tinggal" << endl;
     cout << "+ 0. Exit" << endl;
-    cout << "=================================================================" << endl;
+    cout << "=====================================================" << endl;
     cout << "Masukkan menu : ";
 
     int input = 0;
@@ -178,7 +241,7 @@ void countData(List_p LP, List_c LC){
 
     int hasilHitung = 0;
     p = first(LP);
-    cout << endl << "   Jumlah data child pada setiap parentnya :" << endl;
+    cout << endl << "Jumlah data driver pada setiap kecamatan :" << endl;
     while(p != NULL) {
         q = first(LC);
         while(q != NULL) {
@@ -187,7 +250,7 @@ void countData(List_p LP, List_c LC){
             }
             q = next(q);
         }
-        cout << "   " << info(p) << " : " << hasilHitung << endl;
+        cout << "- " << info(p) << " : " << hasilHitung << endl;
         hasilHitung = 0;
         p = next(p);
     }
@@ -201,7 +264,7 @@ void countParent(List_p LP) {
         i++;
         P = next(P);
     }
-    cout << "   Total Data Pada List Parent : " << i << endl;
+    cout << "Total Data Kecamatan : " << i << endl;
 }
 
 void countChild(List_c LC) {
@@ -211,7 +274,7 @@ void countChild(List_c LC) {
         j++;
         C = next(C);
     }
-    cout << "   Total Data Pada List Child : " << j << endl;
+    cout << "Total Data Driver : " << j << endl;
 }
 
 void countMax(List_p LP, List_c LC){
@@ -272,59 +335,59 @@ void countMin(List_p LP, List_c LC){
     cout << endl;
 };
 
-bool findParentChild(List_p LP,List_c LC) {
-    bool lanjut = true;
-    address_p hasilJP;
-    address_c hasilJC;
-    infotype_c x;
-    string jawaban,jP,jCNama,jCTempatTinggal,jLanjut;
-    while(lanjut) {
-        cout << endl << "   === Cari data pada parent atau child?" << endl;
-        cout << "   1. Parent" << endl;
-        cout << "   2. Child" << endl;
-        cout << "   Jawab : ";
-        cin >> jawaban;
-
-        if(jawaban == "1") {
-            cout << endl << "   Data yang akan dicari di parent : ";
-            cin >> jP;
-            hasilJP = findElement(LP,jP);
-            if(hasilJP != NULL) {
-                cout << "   Hasil : Data " << jP << " tersedia!" << endl;
-            } else {
-                cout << "   Hasil : Data " << jP << " tidak tersedia." << endl;
-            }
-        } else if(jawaban == "2") {
-            cout << endl << "   Data yang akan dicari di child : " << endl;
-            cout << "   Nama Driver : ";
-            cin >> jCNama;
-            cout << "   Tempat Tinggal : ";
-            cin >> jCTempatTinggal;
-
-            x.nama = jCNama;
-            x.tempatTinggal = jCTempatTinggal;
-
-            hasilJC = findElement(LC,x);
-            if(hasilJC != NULL) {
-                cout << "   Hasil : Data  tersedia!" << endl;
-            } else {
-                cout << "   Hasil : Data tidak tersedia." << endl;
-            }
-        }
-
-        cout << endl << "   Lanjut Mencari? " << endl;
-        cout << "   1. Ya" << endl;
-        cout << "   2. Tidak" << endl;
-        cout << "   Jawab : ";
-        cin  >> jLanjut;
-
-        if(jLanjut != "1") {
-            lanjut = false;
-        }
-    }
-    cout << endl;
-
-
-};
+//bool findParentChild(List_p LP,List_c LC) {
+//    bool lanjut = true;
+//    address_p hasilJP;
+//    address_c hasilJC;
+//    infotype_c x;
+//    string jawaban,jP,jCNama,jCTempatTinggal,jLanjut;
+//    while(lanjut) {
+//        cout << endl << "   === Cari data pada parent atau child?" << endl;
+//        cout << "   1. Parent" << endl;
+//        cout << "   2. Child" << endl;
+//        cout << "   Jawab : ";
+//        cin >> jawaban;
+//
+//        if(jawaban == "1") {
+//            cout << endl << "   Data yang akan dicari di parent : ";
+//            cin >> jP;
+//            hasilJP = findElement(LP,jP);
+//            if(hasilJP != NULL) {
+//                cout << "   Hasil : Data " << jP << " tersedia!" << endl;
+//            } else {
+//                cout << "   Hasil : Data " << jP << " tidak tersedia." << endl;
+//            }
+//        } else if(jawaban == "2") {
+//            cout << endl << "   Data yang akan dicari di child : " << endl;
+//            cout << "   Nama Driver : ";
+//            cin >> jCNama;
+//            cout << "   Tempat Tinggal : ";
+//            cin >> jCTempatTinggal;
+//
+//            x.nama = jCNama;
+//            x.tempatTinggal = jCTempatTinggal;
+//
+//            hasilJC = findElement(LC,x);
+//            if(hasilJC != NULL) {
+//                cout << "   Hasil : Data  tersedia!" << endl;
+//            } else {
+//                cout << "   Hasil : Data tidak tersedia." << endl;
+//            }
+//        }
+//
+//        cout << endl << "   Lanjut Mencari? " << endl;
+//        cout << "   1. Ya" << endl;
+//        cout << "   2. Tidak" << endl;
+//        cout << "   Jawab : ";
+//        cin  >> jLanjut;
+//
+//        if(jLanjut != "1") {
+//            lanjut = false;
+//        }
+//    }
+//    cout << endl;
+//
+//
+//};
 
 

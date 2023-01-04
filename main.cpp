@@ -27,7 +27,7 @@ int main()
     while(pilihan != 0) {
         switch(pilihan) {
             case 1 :
-                cout << "Masukkan Kecamatan : ";
+                cout << "Masukkan Nama Kecamatan : ";
                 cin >> inputKecamatan;
                 insertFirst(kecamatan,alokasiP(inputKecamatan));
                 prev = 'Y';
@@ -35,21 +35,36 @@ int main()
                 break;
 
             case 2:
-                cout << "Daftar Kecamatan" << endl;
-                printInfo(kecamatan);
-                cout << "Pilih Kecamatan Driver : ";
-                cin >> pilihanKecamatanDriver;
-                cout << "User Memilih Kecamatan : " << pilihanKecamatanDriver << endl;
+                {
+                    bool checkEmpty = first(kecamatan) == NULL;
+                    if(!checkEmpty) {
+                        printInfo(kecamatan);
+                        cout << "Pilih Kecamatan Driver : ";
+                        cin >> pilihanKecamatanDriver;
 
-                cout << "Nama Driver : ";
-                cin >> inputNama;
-                cout << "Tempat Tinggal : ";
-                cin >> inputTempatTinggal;
-                cout << endl;
+                        address_p P = first(kecamatan);
+                        int z = 1;
+                        while(z < pilihanKecamatanDriver){
+                             P = next(P);
+                             z++;
+                         };
+                        cout << endl << "Nama Driver    : ";
+                        cin >> inputNama;
+                        cout << "Tempat Tinggal : ";
+                        cin >> inputTempatTinggal;
+                        cout << endl;
 
-                x.nama = inputNama;
-                x.tempatTinggal = inputTempatTinggal;
-                insertFirst(driver,alokasiC(x));
+                        x.nama = inputNama;
+                        x.tempatTinggal = inputTempatTinggal;
+                        address_c C = alokasiC(x);
+                        insertFirst(driver,C);
+                        connect(P,C);
+                    } else {
+                        cout << "List Kecamatan Kosong! Masukkan Daftar Kecamatan Terlebih Dahulu" << endl;
+                        prev = 'Y';
+                    }
+                }
+
                 break;
 
             case 3:
@@ -61,26 +76,42 @@ int main()
             case 4:
                 {
 
-                cout << "4. Menambahkan relasi antara kecamatan dan driver." << endl << endl;
-                address_c r = first(driver);
-                 cout << "   Nama Driver \tTempat Tinggal \tKecamatan" << endl;
-                 while(r!=NULL){
-                     cout << "   " << info(r).nama << "\t";
-                     cout << info(r).tempatTinggal << "\t";
-                     cin >> inputKecamatanDriver;
-                     P = findElement(kecamatan,inputKecamatanDriver);
-                     C = findElement(driver,info(r));
-                     connect(P,C);
-                     r = next(r);
-                 };
-                 cout << endl;
-                 printRelasi(kecamatan,driver);
+                cout << "== Daftar Kecamatan : " << endl;
+                int pilihanKecamatan;
+                bool checkEmpty = first(kecamatan) == NULL;
+                    if(!checkEmpty) {
+                        printInfo(kecamatan);
+                        cout << "Pilih Kecamatan : ";
+                        cin >> pilihanKecamatan;
+                        cout << endl;
+                        address_p P = first(kecamatan);
+                        int z = 1;
+                        while(z < pilihanKecamatan){
+                             P = next(P);
+                             z++;
+                         };
+
+                        printRelasi(kecamatan,driver,P);
+                    } else {
+                        cout << "List Kosong!" << endl;
+                        prev = 'Y';
+                    }
+                cout << endl;
                 break;
                 }
 
             case 5:
-                cout << "tes" << endl;
-                break;
+                {
+                    string target;
+                    address_p p;
+                    cout << "Masukkan Kecamatan yang ingin dihapus: ";
+                    cin >> target;
+
+                    deleteKecematan(kecamatan, driver, p, target);
+                    printInfo(kecamatan);
+                    break;
+
+                }
 
             case 6:
                 cout << "6. Menghitung jumlah data pada kecamatan dan setiap drivernya." << endl << endl;
@@ -125,6 +156,7 @@ int main()
     insertFirst(driver,alokasiC("Yayan")); // Batununggal
     insertFirst(driver,alokasiC("Lukman")); // Antapani
     printInfo(driver);
+
 
     P = findElement(kecamatan,"Batununggal");
     C = findElement(driver,"Bambang");
