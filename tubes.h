@@ -60,7 +60,7 @@ void deleteFirst(List_c &L, address_c &P);
 void printInfo(List_c L);
 address_c findElement(List_c L, infotype_c x);
 address_c findNopol(List_c L, infotype_c x);
-void deleteDriver(List_c &L, address_c &P, infotype_c x);
+void deleteDriver(List_c &L, address_c &P, string namaDriver, string nopolDriver);
 void deleteLast(List_c &L, address_c &P);
 void deleteMiddle(List_c &L, address_c &x);
 

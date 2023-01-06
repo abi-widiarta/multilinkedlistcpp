@@ -8,7 +8,7 @@ int main()
     int i,j,pilihan,banyak;
     char prev;
     int nP,nC;
-    string inputKecamatan,inputNama,inputTempatTinggal,inputKecamatanDriver;
+    string inputKecamatan,inputNama,inputTempatTinggal,inputKecamatanDriver, inputNopol;
 
     List_p kecamatan;
     List_c driver;
@@ -52,10 +52,13 @@ int main()
                         cin >> inputNama;
                         cout << "Tempat Tinggal : ";
                         cin >> inputTempatTinggal;
+                        cout << "Input Nopol : ";
+                        cin >> inputNopol;
                         cout << endl;
 
                         x.nama = inputNama;
                         x.tempatTinggal = inputTempatTinggal;
+                        x.nopol = inputNopol;
                         address_c C = alokasiC(x);
                         insertFirst(driver,C);
                         connect(P,C);
@@ -130,6 +133,16 @@ int main()
                 countMin(kecamatan,driver);
                 break;
 
+            case 10:
+                cout << "10. Menghapus Data Driver." << endl << endl;
+                string namaDriver, nopolDriver;
+                address_c p;
+                cout << "Masukkan nama Driver yang ingin dihapus: ";
+                cin >> namaDriver;
+                cout << "Nopol Driver : ";
+                cin >> nopolDriver;
+                deleteDriver(driver,p,namaDriver,nopolDriver);
+                break;
         }
         if(prev=='Y') {
             pilihan = selectMenu_1301213196();

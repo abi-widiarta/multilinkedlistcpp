@@ -153,7 +153,8 @@ void printInfo(List_c L) {
          cout << "   Nama Driver \tTempat Tinggal" << endl;
      while(P!=NULL){
          cout << "   " << info(P).nama << "\t";
-         cout << info(P).tempatTinggal << endl;
+         cout << info(P).tempatTinggal << "\t";
+         cout << info(P).nopol << endl;
          P = next(P);
      };
      cout<<endl<<endl;
@@ -211,27 +212,31 @@ void deleteLast(List_c &L, address_c &P){
     }
 }
 
-void deleteDriver(List_c &L, address_c &P, infotype_c x){
+void deleteDriver(List_c &L, address_c &P, string namaDriver, string nopolDriver){ //x = nama, m = nopol
     address_c Q = first(L);
-    if(first(L) == NULL){
-        cout << "Driver tidak ditemukan" <<endl;
-    }else{
+    bool found = false;
         while(Q != NULL){
-            if(info(Q).nama == x.nama){
+            if(info(Q).nama == namaDriver && info(Q).nopol == nopolDriver){
+                found = true;
                 if(Q == first(L)){
                     disconnect(Q);
                     deleteFirst(L, P);
                 }else if(next(Q) == NULL){
                     disconnect(Q);
-                    deleteMiddle(L, P);
+                    deleteLast(L, P);
                 }else{
                     disconnect(Q);
-                    deleteLast(L, P);
+                    deleteMiddle(L, Q);
                 }
             }
-            P = next(P);
+            Q = next(Q);
         }
-    }
+
+        if(found == false) {
+            cout << "Data Driver Tidak Ditemukan!" << endl;
+        }else{
+            printInfo(L);
+        }
 };
 
 
@@ -260,6 +265,7 @@ void printRelasi(List_p LP, List_c LC,address_p P) {
                 cout << i << ".";
                 cout << " Nama Driver    : " << info(C).nama << endl;
                 cout << "   Tempat Tinggal : " << info(C).tempatTinggal << endl;
+                cout << "   Nopol          : " << info(C).nopol << endl;
                 i++;
             }
             C = next(C);
@@ -290,6 +296,9 @@ int selectMenu_1301213196() {
     cout << "+ 7. Kecamatan Dengan Driver Paling Banyak" << endl;
     cout << "+ 8. Kecamatan Dengan Driver Paling Sedikit" << endl;
     cout << "+ 9. Tampilkan Driver Berdasarkan Tempat Tinggal" << endl;
+    cout << "=================== CEK LAGI BII ===================" << endl;
+    cout << "+ 10. Delete Driver" << endl;
+    cout << "+ 11. Cari Driver berdasarkan Nopol" << endl;
     cout << "+ 0. Exit" << endl;
     cout << "=====================================================" << endl;
     cout << "Masukkan menu : ";
