@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    int i,j,pilihan,banyak;
+    int i,j,banyak,pilihan;
     char prev;
     int nP,nC;
     string inputKecamatan,inputNama,inputTempatTinggal,inputKecamatanDriver, inputNopol;
@@ -26,12 +26,12 @@ int main()
     pilihan = selectMenu_1301213196();
     while(pilihan != 0) {
         switch(pilihan) {
-            case 1 :
+            case 1:
                 cout << "Masukkan Nama Kecamatan : ";
                 cin >> inputKecamatan;
                 insertFirst(kecamatan,alokasiP(inputKecamatan));
-                prev = 'Y';
-                cout << endl;
+                cout << endl << "Kembali ke menu? (Y/N) : ";
+                cin >> prev;
                 break;
 
             case 2:
@@ -62,9 +62,11 @@ int main()
                         address_c C = alokasiC(x);
                         insertFirst(driver,C);
                         connect(P,C);
+                        system("cls");
                     } else {
                         cout << "List Kecamatan Kosong! Masukkan Daftar Kecamatan Terlebih Dahulu" << endl;
                         prev = 'Y';
+                        system("cls");
                     }
                 }
 
@@ -73,7 +75,8 @@ int main()
             case 3:
                 cout << "== Daftar Kecamatan" << endl;
                 printInfo(kecamatan);
-                prev = 'Y';
+                cout << endl << "Kembali ke menu? (Y/N) : ";
+                cin >> prev;
                 break;
 
             case 4:
@@ -117,11 +120,17 @@ int main()
                 }
 
             case 6:
-                cout << "6. Menghitung jumlah data pada kecamatan dan setiap drivernya." << endl << endl;
-                countParent(kecamatan);
-                countChild(driver);
-                countData(kecamatan,driver);
+                {
+                cout << "10. Menghapus Data Driver." << endl << endl;
+                string namaDriver, nopolDriver;
+                address_c p;
+                cout << "Masukkan nama Driver yang ingin dihapus: ";
+                cin >> namaDriver;
+                cout << "Nopol Driver : ";
+                cin >> nopolDriver;
+                deleteDriver(driver,p,namaDriver,nopolDriver);
                 break;
+                }
 
             case 7:
                 cout << "7. Menampilkan jumlah driver paling banyak di suatu kecamatan." << endl << endl;
@@ -132,24 +141,40 @@ int main()
                 cout << "8. Menampilkan jumlah driver paling sedikit di suatu kecamatan." << endl << endl;
                 countMin(kecamatan,driver);
                 break;
+            case 9:
+                cout << "6. Menghitung jumlah data pada kecamatan dan setiap drivernya." << endl << endl;
+                countParent(kecamatan);
+                countChild(driver);
+                countData(kecamatan,driver);
+                break;
 
             case 10:
-                cout << "10. Menghapus Data Driver." << endl << endl;
-                string namaDriver, nopolDriver;
-                address_c p;
-                cout << "Masukkan nama Driver yang ingin dihapus: ";
-                cin >> namaDriver;
-                cout << "Nopol Driver : ";
-                cin >> nopolDriver;
-                deleteDriver(driver,p,namaDriver,nopolDriver);
+                {
+                cout << "11. Cari Driver berdasarkan nopol" << endl << endl;
+                infotype_c x;
+                cout << "Masukkan nopol Driver: ";
+                cin >> x.nopol;
+                string target = findNopol(driver, x);
+                cout << target;
+                cout << endl;
                 break;
+                }
+            default:
+                {
+                    cout << "Input tidak valid, Masukkan input dengan benar!" << endl << endl;
+                    pilihan = selectMenu_1301213196();
+                }
         }
-        if(prev=='Y') {
+
+        if(prev == 'Y') {
+            //system("cls");
             pilihan = selectMenu_1301213196();
+        } else {
+            pilihan = 0;
         }
     }
     if (pilihan == 0) {
-        cout << "ANDA TELAH KELUAR DARI PROGRAM" << endl;
+        cout << endl << "ANDA TELAH KELUAR DARI PROGRAM!" << endl;
     }
 
     /*

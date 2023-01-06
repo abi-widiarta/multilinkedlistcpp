@@ -171,11 +171,11 @@ address_c findElement(List_c L, infotype_c x) {
     return NULL;
 };
 
-address_c findNopol(List_c L, infotype_c x){
+string findNopol(List_c L, infotype_c x){
     address_c P = first(L);
     while (P!=NULL) {
         if(info(P).nopol == x.nopol){
-            return P;
+            return info(P).nama;
         }
         P = next(P);
     }
@@ -215,28 +215,29 @@ void deleteLast(List_c &L, address_c &P){
 void deleteDriver(List_c &L, address_c &P, string namaDriver, string nopolDriver){ //x = nama, m = nopol
     address_c Q = first(L);
     bool found = false;
-        while(Q != NULL){
-            if(info(Q).nama == namaDriver && info(Q).nopol == nopolDriver){
-                found = true;
-                if(Q == first(L)){
-                    disconnect(Q);
-                    deleteFirst(L, P);
-                }else if(next(Q) == NULL){
-                    disconnect(Q);
-                    deleteLast(L, P);
-                }else{
-                    disconnect(Q);
-                    deleteMiddle(L, Q);
-                }
+    while(Q != NULL){
+        if(info(Q).nama == namaDriver && info(Q).nopol == nopolDriver){
+            found = true;
+            if(Q == first(L)){
+                disconnect(Q);
+                deleteFirst(L, P);
+            }else if(next(Q) == NULL){
+                disconnect(Q);
+                deleteLast(L, P);
+            }else{
+                disconnect(Q);
+                deleteMiddle(L, Q);
             }
-            Q = next(Q);
         }
-
-        if(found == false) {
-            cout << "Data Driver Tidak Ditemukan!" << endl;
-        }else{
-            printInfo(L);
-        }
+        Q = next(Q);
+    }
+    if(found == false) {
+        cout << "Data Driver Tidak Ditemukan!" << endl;
+    }else if(first(L) == NULL){
+        cout << "Semua data Driver telah dihapus"<<endl;
+    }else{
+        printInfo(L);
+    }
 };
 
 
@@ -292,18 +293,16 @@ int selectMenu_1301213196() {
     cout << "+ 3. Tampilkan Kecamatan." << endl;
     cout << "+ 4. Tampilkan Driver." << endl;
     cout << "+ 5. Hapus Kecamatan" << endl;
-    cout << "+ 6. Tampilkan Jumlah Data Kecamatan Dan Driver" << endl;
+    cout << "+ 6. Hapus Driver" << endl;
     cout << "+ 7. Kecamatan Dengan Driver Paling Banyak" << endl;
     cout << "+ 8. Kecamatan Dengan Driver Paling Sedikit" << endl;
-    cout << "+ 9. Tampilkan Driver Berdasarkan Tempat Tinggal" << endl;
-    cout << "=================== CEK LAGI BII ===================" << endl;
-    cout << "+ 10. Delete Driver" << endl;
-    cout << "+ 11. Cari Driver berdasarkan Nopol" << endl;
+    cout << "+ 9. Tampilkan Jumlah Data Kecamatan Dan Driver" << endl;
+    cout << "+ 10. Cari Driver berdasarkan Nopol" << endl;
     cout << "+ 0. Exit" << endl;
     cout << "=====================================================" << endl;
     cout << "Masukkan menu : ";
 
-    int input = 0;
+    int input;
     cin >> input;
     cout << endl;
     return input;
