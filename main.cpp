@@ -1,14 +1,21 @@
 #include "tubes.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
 int main()
 {
     int i,j,banyak,pilihan;
-    char prev;
-    int nP,nC;
+    char prev,opening;
+    int nP,nC,pilihanKecamatanDriver;
     string inputKecamatan,inputNama,inputTempatTinggal,inputKecamatanDriver, inputNopol;
+
+    const char separator    = ' ';
+    const int nameWidth     = 50;
+    const int numWidth      = 8;
+
+
 
     List_p kecamatan;
     List_c driver;
@@ -18,19 +25,37 @@ int main()
 
     infotype_c x;
 
-    // VAR ASISTENSI
-    int pilihanKecamatanDriver;
-
     createList(kecamatan);
     createList(driver);
+
+    cout << " ===========================================" << endl;
+    cout << " +       TUBES STD KELOMPOK FLASHDISK      +" << endl;
+    cout << " +            JASA TRANSPORTASI            +" << endl;
+    cout << " +                 TIPE A                  +" << endl;
+    cout << " ===========================================" << endl;
+    cout << " +                                         +" << endl;
+    cout << " +            ANGGOTA KELOMPOK             +" << endl;
+    cout << " +     RADITYA AYDIN        (1301213196)   +" << endl;
+    cout << " +     I WAYAN ABI WIDIARTA (1301213196)   +" << endl;
+    cout << " +                                         +" << endl;
+    cout << " ===========================================" << endl << endl;
+    cout << " Tekan ENTER untuk melanjutkan...";
+
+    cin.ignore();
+    system("cls");
+
     pilihan = selectMenu_1301213196();
     while(pilihan != 0) {
         switch(pilihan) {
             case 1:
-                cout << "Masukkan Nama Kecamatan : ";
+                cout << " MASUKKAN NAMA KECAMATAN : " << endl;
+                cout << " > ";
                 cin >> inputKecamatan;
                 insertFirst(kecamatan,alokasiP(inputKecamatan));
-                cout << endl << "Kembali ke menu? (Y/N) : ";
+                cout << endl << " ================================" << endl;
+                cout << " + Kecamatan Berhasil Ditambah! +" << endl;
+                cout << " ================================" << endl;
+                cout << endl << " Kembali ke menu? (y/n) : ";
                 cin >> prev;
                 break;
 
@@ -38,8 +63,10 @@ int main()
                 {
                     bool checkEmpty = first(kecamatan) == NULL;
                     if(!checkEmpty) {
+
                         printInfo(kecamatan);
-                        cout << "Pilih Kecamatan Driver : ";
+
+                        cout << " Pilih Kecamatan Driver : ";
                         cin >> pilihanKecamatanDriver;
 
                         address_p P = first(kecamatan);
@@ -48,11 +75,11 @@ int main()
                              P = next(P);
                              z++;
                          };
-                        cout << endl << "Nama Driver    : ";
+                        cout << endl << " Nama Driver    : ";
                         cin >> inputNama;
-                        cout << "Tempat Tinggal : ";
+                        cout << " Tempat Tinggal : ";
                         cin >> inputTempatTinggal;
-                        cout << "Input Nopol : ";
+                        cout << " Input Nopol    : ";
                         cin >> inputNopol;
                         cout << endl;
 
@@ -62,32 +89,36 @@ int main()
                         address_c C = alokasiC(x);
                         insertFirst(driver,C);
                         connect(P,C);
-                        system("cls");
+
                     } else {
-                        cout << "List Kecamatan Kosong! Masukkan Daftar Kecamatan Terlebih Dahulu" << endl;
-                        prev = 'Y';
-                        system("cls");
+                        cout << " List Kecamatan Kosong! Masukkan Daftar Kecamatan Terlebih Dahulu" << endl;
+
                     }
                 }
+                cout << " ================================" << endl;
+                cout << " +   Driver Berhasil Ditambah!  +" << endl;
+                cout << " ================================" << endl << endl;
+                cout << " Kembali ke menu? (y/n) : ";
+                cin >> prev;
 
                 break;
 
             case 3:
-                cout << "== Daftar Kecamatan" << endl;
                 printInfo(kecamatan);
-                cout << endl << "Kembali ke menu? (Y/N) : ";
+
+                cout << endl << " Kembali ke menu? (y/n) : ";
                 cin >> prev;
                 break;
 
             case 4:
                 {
 
-                cout << "== Daftar Kecamatan : " << endl;
+
                 int pilihanKecamatan;
                 bool checkEmpty = first(kecamatan) == NULL;
                     if(!checkEmpty) {
                         printInfo(kecamatan);
-                        cout << "Pilih Kecamatan : ";
+                        cout << " Pilih Kecamatan : ";
                         cin >> pilihanKecamatan;
                         cout << endl;
                         address_p P = first(kecamatan);
@@ -99,9 +130,10 @@ int main()
 
                         printRelasi(kecamatan,driver,P);
                     } else {
-                        cout << "List Kosong!" << endl;
-                        prev = 'Y';
+                        printInfo(kecamatan);
                     }
+                cout << endl << " Kembali ke menu? (y/n) : ";
+                cin >> prev;
                 cout << endl;
                 break;
                 }
@@ -110,53 +142,79 @@ int main()
                 {
                     string target;
                     address_p p;
-                    cout << "Masukkan Kecamatan yang ingin dihapus: ";
+                    printInfo(kecamatan);
+
+                    cout << " Masukkan Nama Kecamatan yang ingin dihapus : ";
                     cin >> target;
 
                     deleteKecematan(kecamatan, driver, p, target);
-                    printInfo(kecamatan);
+
+                    cout << endl << " Kembali ke menu? (y/n) : ";
+                    cin >> prev;
                     break;
 
                 }
 
             case 6:
                 {
-                cout << "10. Menghapus Data Driver." << endl << endl;
                 string namaDriver, nopolDriver;
                 address_c p;
-                cout << "Masukkan nama Driver yang ingin dihapus: ";
+                printInfo(driver);
+                cout << " Masukkan Detail Driver Yang Ingin Dihapus!" << endl;
+                cout << endl << " Nama Driver  : ";
                 cin >> namaDriver;
-                cout << "Nopol Driver : ";
+                cout << " Nopol Driver : ";
                 cin >> nopolDriver;
+
                 deleteDriver(driver,p,namaDriver,nopolDriver);
+                cout << endl << " Kembali ke menu? (y/n) : ";
+                cin >> prev;
                 break;
                 }
 
             case 7:
-                cout << "7. Menampilkan jumlah driver paling banyak di suatu kecamatan." << endl << endl;
                 countMax(kecamatan,driver);
+                cout << endl << " Kembali ke menu? (y/n) : ";
+                cin >> prev;
                 break;
 
             case 8:
-                cout << "8. Menampilkan jumlah driver paling sedikit di suatu kecamatan." << endl << endl;
                 countMin(kecamatan,driver);
+                cout << endl << " Kembali ke menu? (y/n) : ";
+                cin >> prev;
                 break;
             case 9:
-                cout << "6. Menghitung jumlah data pada kecamatan dan setiap drivernya." << endl << endl;
                 countParent(kecamatan);
                 countChild(driver);
-                countData(kecamatan,driver);
+                cout << endl << " Kembali ke menu? (y/n) : ";
+                cin >> prev;
                 break;
 
             case 10:
                 {
-                cout << "11. Cari Driver berdasarkan nopol" << endl << endl;
                 infotype_c x;
-                cout << "Masukkan nopol Driver: ";
+                cout << " MASUKKAN NOPOL DRIVER : " << endl;
+                cout << " > ";
                 cin >> x.nopol;
-                string target = findNopol(driver, x);
-                cout << target;
+                address_c target = findNopol(driver, x);
+
+                if(target == NULL) {
+                    cout << " Driver tidak ditemukan!" << endl;
+                } else {
+                    cout << " =======================" << endl;
+                    cout << " +  Driver Ditemukan!  +" << endl;
+                    cout << " =======================" << endl << endl;
+
+                    // cout << "Detail Driver   : " << endl;
+                    cout << " Nama Driver     :  " << info(target).nama << endl;
+                    cout << " Tempat Tinggal  :  " << info(target).tempatTinggal << endl;
+                    cout << " Nopol           :  " << info(target).nopol << endl;
+                    cout << " Kecamatan       :  " << info(parent(target)) << endl;
+                }
+
                 cout << endl;
+                cout << endl << " Kembali ke menu? (y/n) : ";
+                cin >> prev;
                 break;
                 }
             default:
@@ -166,8 +224,8 @@ int main()
                 }
         }
 
-        if(prev == 'Y') {
-            //system("cls");
+        if(prev == 'Y' || prev == 'y') {
+            system("cls");
             pilihan = selectMenu_1301213196();
         } else {
             pilihan = 0;
@@ -177,48 +235,5 @@ int main()
         cout << endl << "ANDA TELAH KELUAR DARI PROGRAM!" << endl;
     }
 
-    /*
-
-    CADANGAN
-
-    createList(kecamatan);
-    insertFirst(kecamatan,alokasiP("Batununggal"));
-    insertFirst(kecamatan,alokasiP("Bojongsoang"));
-    insertFirst(kecamatan,alokasiP("Antapani"));
-    printInfo(kecamatan);
-
-    createList(driver);
-    insertFirst(driver,alokasiC("Bambang")); // Batununggal
-    insertFirst(driver,alokasiC("Agus")); // Bojongsoang
-    insertFirst(driver,alokasiC("Ucok")); // Bojongsoang
-    insertFirst(driver,alokasiC("Yayan")); // Batununggal
-    insertFirst(driver,alokasiC("Lukman")); // Antapani
-    printInfo(driver);
-
-
-    P = findElement(kecamatan,"Batununggal");
-    C = findElement(driver,"Bambang");
-    connect(P,C);
-
-    P = findElement(kecamatan,"Bojongsoang");
-    C = findElement(driver,"Agus");
-    connect(P,C);
-
-    P = findElement(kecamatan,"Bojongsoang");
-    C = findElement(driver,"Ucok");
-    connect(P,C);
-
-    P = findElement(kecamatan,"Batununggal");
-    C = findElement(driver,"Yayan");
-    connect(P,C);
-
-    P = findElement(kecamatan,"Antapani");
-    C = findElement(driver,"Lukman");
-    connect(P,C);
-
-
-    printRelasi(kecamatan,driver);
-
-    */
     return 0;
 }

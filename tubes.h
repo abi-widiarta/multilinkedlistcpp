@@ -2,6 +2,7 @@
 #define TUBES_H_INCLUDED
 
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -59,7 +60,7 @@ void insertFirst(List_c &L, address_c P);
 void deleteFirst(List_c &L, address_c &P);
 void printInfo(List_c L);
 address_c findElement(List_c L, infotype_c x);
-string findNopol(List_c L, infotype_c x);
+address_c findNopol(List_c L, infotype_c x);
 void deleteDriver(List_c &L, address_c &P, string namaDriver, string nopolDriver);
 void deleteLast(List_c &L, address_c &P);
 void deleteMiddle(List_c &L, address_c &x);

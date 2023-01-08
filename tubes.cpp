@@ -31,16 +31,33 @@ void deleteFirst(List_p &L, address_p &P) {
 };
 
 void printInfo(List_p L) {
+    cout << " " << left << setw(30) << setfill('=') << "";
+    cout << endl;
+    cout << left << setw(30) << setfill(' ') << " | DAFTAR KECAMATAN";
+    cout << "|" << endl;
+    cout << " " << left << setw(30) << setfill('=') << "";
+    cout << endl;
+    cout << left << setw(30) << setfill(' ') << " |";
+    cout << "|" << endl;
+
      if(first(L) == NULL) {
-        cout << "List Kosong!" << endl;
+        cout << left << setw(30) << setfill(' ') << " | Tidak Ada Data Kecamatan";
+            cout << "|" << endl;
+            cout << left << setw(30) << setfill(' ') << " |";
+            cout << "|" << endl;
+            cout << " " << left << setw(30) << setfill('=') << "";
      } else {
         address_p P = first(L);
         int i = 1;
         while(P!=NULL){
-             cout << "[" << i << "] " << info(P) << endl;
+            cout << left <<  " | [" << i << "] " << setw(23) << setfill(' ') << info(P);
+            cout << "|" << endl;
              P = next(P);
              i++;
          };
+         cout << left << setw(30) << setfill(' ') << " |";
+         cout << "|" << endl;
+         cout << " " << left << setw(30) << setfill('=') << "";
      }
      cout<<endl;
 };
@@ -100,18 +117,25 @@ void deleteMiddle(List_p &L, address_p &x){
 void deleteKecematan(List_p &LP, List_c &LC, address_p &P, infotype_p x){
     address_p target = findElement(LP, x);
     address_c c = first(LC);
-    while(c != NULL){
-        if(parent(c) == target){
-            parent(c) = NULL;
+    if(target != NULL) {
+        while(c != NULL){
+            if(parent(c) == target){
+                parent(c) = NULL;
+            }
+            c = next(c);
         }
-        c = next(c);
-    }
-    if(target == first(LP)){
-        deleteFirst(LP, P);
-    }else if(next(target) == NULL){
-        deleteLast(LP, P);
-    }else{
-        deleteMiddle(LP, target);
+        if(target == first(LP)){
+            deleteFirst(LP, P);
+        }else if(next(target) == NULL){
+            deleteLast(LP, P);
+        }else{
+            deleteMiddle(LP, target);
+        }
+
+        cout << endl << " Daftar Kecamatan Setelah Penghapusan : " << endl << endl;
+        printInfo(LP);
+    } else if(target == NULL){
+        cout << endl << " Kecamatan Tidak Ditemukan!" << endl;
     }
 }
 
@@ -148,6 +172,45 @@ void deleteFirst(List_c &L, address_c &P) {
 };
 
 void printInfo(List_c L) {
+    cout << " " << left << setw(40) << setfill('=') << "";
+    cout << endl;
+    cout << left << setw(40) << setfill(' ') << " | DAFTAR DRIVER";
+    cout << "|" << endl;
+    cout << " " << left << setw(40) << setfill('=') << "";
+    cout << endl;
+    cout << left << setw(40) << setfill(' ') << " |";
+    cout << "|" << endl;
+
+     if(first(L) == NULL) {
+        cout << left << setw(40) << setfill(' ') << " | Tidak Ada Data Driver";
+            cout << "|" << endl;
+            cout << left << setw(40) << setfill(' ') << " |";
+            cout << "|" << endl;
+            cout << " " << left << setw(40) << setfill('=') << "";
+     } else {
+        address_c P = first(L);
+        int i = 1;
+        while(P!=NULL){
+            cout << left << " | [" << i << "]  Nama Driver    : " << setw(15) << setfill(' ') << info(P).nama;
+                cout << "|" << endl;
+                cout << left << " |      Tempat Tinggal : " << setw(15) << setfill(' ') << info(P).tempatTinggal;
+                cout << "|" << endl;
+                cout << left << " |      Nopol          : " << setw(15) << setfill(' ') << info(P).nopol;
+                cout << "|" << endl;
+                cout << left << " |      Kecamatan      : " << setw(15) << setfill(' ') << info(parent(P));
+                cout << "|" << endl;
+                i++;
+                P = next(P);
+                cout << left << setw(40) << setfill(' ') << " |";
+                cout << "|" << endl;
+         };
+         cout << left << setw(40) << setfill(' ') << " |";
+         cout << "|" << endl;
+         cout << " " << left << setw(40) << setfill('=') << "";
+     }
+     cout<<endl;
+
+    /*
      address_c P = first(L);
      cout<<"=== List Driver (Child)"<<endl << endl;
          cout << "   Nama Driver \tTempat Tinggal" << endl;
@@ -158,6 +221,7 @@ void printInfo(List_c L) {
          P = next(P);
      };
      cout<<endl<<endl;
+     */
 };
 
 address_c findElement(List_c L, infotype_c x) {
@@ -171,11 +235,11 @@ address_c findElement(List_c L, infotype_c x) {
     return NULL;
 };
 
-string findNopol(List_c L, infotype_c x){
+address_c findNopol(List_c L, infotype_c x){
     address_c P = first(L);
     while (P!=NULL) {
         if(info(P).nopol == x.nopol){
-            return info(P).nama;
+            return P;
         }
         P = next(P);
     }
@@ -232,10 +296,11 @@ void deleteDriver(List_c &L, address_c &P, string namaDriver, string nopolDriver
         Q = next(Q);
     }
     if(found == false) {
-        cout << "Data Driver Tidak Ditemukan!" << endl;
+        cout << endl << " Data Driver Tidak Ditemukan!" << endl;
     }else if(first(L) == NULL){
-        cout << "Semua data Driver telah dihapus"<<endl;
+        cout << endl << " Semua data Driver telah dihapus"<<endl;
     }else{
+        cout << endl << " Data Driver Setelah Dilakukan Penghapusan :" << endl;
         printInfo(L);
     }
 };
@@ -257,26 +322,49 @@ void disconnect(address_c &C) {
 
 void printRelasi(List_p LP, List_c LC,address_p P) {
     address_c C = first(LC);
-    cout << "=== Kecamatan " << info(P) << endl;
+    cout << " " << left << setw(40) << setfill('=') << "";
+    cout << endl;
+    cout << left << " | Kecamatan " << setw(27) << setfill(' ') << info(P);
+    cout << "|" << endl;
+    cout << " " << left << setw(40) << setfill('=') << "";
+    cout << endl;
+    cout << left << setw(40) << setfill(' ') << " |";
+    cout << "|" << endl;
+    cout << left << setw(40) << setfill(' ') << " |";
+    cout << "|" << endl;
+
     bool adaDriver = false;
     int i =1;
         while(C!=NULL) {
             if(parent(C) == P) {
                 adaDriver = true;
-                cout << i << ".";
-                cout << " Nama Driver    : " << info(C).nama << endl;
-                cout << "   Tempat Tinggal : " << info(C).tempatTinggal << endl;
-                cout << "   Nopol          : " << info(C).nopol << endl;
+                cout << left << " | [" << i << "]  Nama Driver    : " << setw(15) << setfill(' ') << info(C).nama;
+                cout << "|" << endl;
+                cout << left << " |      Tempat Tinggal : " << setw(15) << setfill(' ') << info(C).tempatTinggal;
+                cout << "|" << endl;
+                cout << left << " |      Nopol          : " << setw(15) << setfill(' ') << info(C).nopol;
+                cout << "|" << endl;
                 i++;
+                cout << left << setw(40) << setfill(' ') << " |";
+                cout << "|" << endl;
             }
             C = next(C);
         }
 
-        if(!adaDriver) {
-            cout << "Tidak Ada Driver" << endl;
+        if(adaDriver) {
+            cout << left << setw(40) << setfill(' ') << " |";
+            cout << "|" << endl;
+            cout << " " << left << setw(40) << setfill('=') << "";
+        } else {
+            cout << left << setw(40) << setfill(' ') << " | Tidak Ada Driver";
+            cout << "|" << endl;
+            cout << left << setw(40) << setfill(' ') << " |";
+            cout << "|" << endl;
+            cout << left << setw(40) << setfill(' ') << " |";
+            cout << "|" << endl;
+            cout << " " << left << setw(40) << setfill('=') << "";
         }
-
-        cout << "===" << endl;
+        cout << endl;
 }
 
 bool checkParent(List_p L){
@@ -286,21 +374,24 @@ bool checkParent(List_p L){
 // FOR MENU
 
 int selectMenu_1301213196() {
-    cout << "================= JASA TRANSPORTASI ================" << endl;
-    cout << "======================= MENU =======================" << endl;
-    cout << "+ 1. Tambah Kecamatan." << endl;
-    cout << "+ 2. Tambah Driver." << endl;
-    cout << "+ 3. Tampilkan Kecamatan." << endl;
-    cout << "+ 4. Tampilkan Driver." << endl;
-    cout << "+ 5. Hapus Kecamatan" << endl;
-    cout << "+ 6. Hapus Driver" << endl;
-    cout << "+ 7. Kecamatan Dengan Driver Paling Banyak" << endl;
-    cout << "+ 8. Kecamatan Dengan Driver Paling Sedikit" << endl;
-    cout << "+ 9. Tampilkan Jumlah Data Kecamatan Dan Driver" << endl;
-    cout << "+ 10. Cari Driver berdasarkan Nopol" << endl;
-    cout << "+ 0. Exit" << endl;
-    cout << "=====================================================" << endl;
-    cout << "Masukkan menu : ";
+    cout << " ====================================================" << endl;
+    cout << " +              MENU JASA TRANSPORTASI              +" << endl;
+    cout << " ====================================================" << endl;
+    cout << " +                                                  +" << endl;
+    cout << " +  1. Tambah Kecamatan                             +" << endl;
+    cout << " +  2. Tambah Driver                                +" << endl;
+    cout << " +  3. Tampilkan Kecamatan                          +" << endl;
+    cout << " +  4. Tampilkan Driver                             +" << endl;
+    cout << " +  5. Hapus Kecamatan                              +" << endl;
+    cout << " +  6. Hapus Driver                                 +" << endl;
+    cout << " +  7. Kecamatan Dengan Driver Paling Banyak        +" << endl;
+    cout << " +  8. Kecamatan Dengan Driver Paling Sedikit       +" << endl;
+    cout << " +  9. Tampilkan Jumlah Data Kecamatan Dan Driver   +" << endl;
+    cout << " +  10. Cari Driver berdasarkan Nopol               +" << endl;
+    cout << " +  0. Exit                                         +" << endl;
+    cout << " +                                                  +" << endl;
+    cout << " ====================================================" << endl;
+    cout << " Masukkan menu : ";
 
     int input;
     cin >> input;
@@ -314,7 +405,7 @@ void countData(List_p LP, List_c LC){
 
     int hasilHitung = 0;
     p = first(LP);
-    cout << endl << "Jumlah data driver pada setiap kecamatan :" << endl;
+    cout << endl << " Jumlah data driver pada setiap kecamatan :" << endl;
     while(p != NULL) {
         q = first(LC);
         while(q != NULL) {
@@ -323,7 +414,7 @@ void countData(List_p LP, List_c LC){
             }
             q = next(q);
         }
-        cout << "- " << info(p) << " : " << hasilHitung << endl;
+        cout << " - " << info(p) << " : " << hasilHitung << endl;
         hasilHitung = 0;
         p = next(p);
     }
@@ -337,7 +428,8 @@ void countParent(List_p LP) {
         i++;
         P = next(P);
     }
-    cout << "Total Data Kecamatan : " << i << endl;
+    printInfo(LP);
+    cout << " Total Data Kecamatan : " << i << endl;
 }
 
 void countChild(List_c LC) {
@@ -347,7 +439,9 @@ void countChild(List_c LC) {
         j++;
         C = next(C);
     }
-    cout << "Total Data Driver : " << j << endl;
+    cout << endl;
+    printInfo(LC);
+    cout << " Total Data Driver    : " << j << endl;
 }
 
 void countMax(List_p LP, List_c LC){
@@ -359,24 +453,30 @@ void countMax(List_p LP, List_c LC){
     int nilaiMax = 0;
 
     p = first(LP);
-    while(p != NULL) {
-        q = first(LC);
-        while(q != NULL) {
-            if(parent(q) == p) {
-                hasilHitung++;
+    if(p == NULL) {
+        cout << " Data Kecamatan Tidak Ditemukan!" << endl;
+    } else {
+        while(p != NULL) {
+            q = first(LC);
+            while(q != NULL) {
+                if(parent(q) == p) {
+                    hasilHitung++;
+                }
+                q = next(q);
             }
-            q = next(q);
+            if(hasilHitung > nilaiMax) {
+                nilaiMax = hasilHitung;
+                temp = p;
+            }
+            hasilHitung = 0;
+            p = next(p);
         }
-        if(hasilHitung > nilaiMax) {
-            nilaiMax = hasilHitung;
-            temp = p;
+        if(nilaiMax != 0) {
+            cout << " Jumlah data paling banyak dimiliki oleh Kecamatan \""<< info(temp) << "\" dengan jumlah data driver sebanyak : "<< nilaiMax << endl;
+        } else if (nilaiMax == 0) {
+            cout << " Tidak ada driver" << endl;
         }
-        hasilHitung = 0;
-        p = next(p);
     }
-    cout << "   ";
-    cout << "Jumlah data paling banyak dimiliki oleh parent \""<< info(temp) << "\" dengan jumlah data driver sebanyak : "<< nilaiMax << endl;
-    cout << endl;
 };
 
 void countMin(List_p LP, List_c LC){
@@ -388,24 +488,26 @@ void countMin(List_p LP, List_c LC){
     int nilaiMin = INT_MAX;
 
     p = first(LP);
-    while(p != NULL) {
-        q = first(LC);
-        while(q != NULL) {
-            if(parent(q) == p) {
-                hasilHitung++;
+    if(p == NULL) {
+        cout << " Data Kecamatan Tidak Ditemukan" << endl;
+    } else {
+        while(p != NULL) {
+            q = first(LC);
+            while(q != NULL) {
+                if(parent(q) == p) {
+                    hasilHitung++;
+                }
+                q = next(q);
             }
-            q = next(q);
+            if(hasilHitung < nilaiMin) {
+                nilaiMin = hasilHitung;
+                temp = p;
+            }
+            hasilHitung = 0;
+            p = next(p);
         }
-        if(hasilHitung < nilaiMin) {
-            nilaiMin = hasilHitung;
-            temp = p;
-        }
-        hasilHitung = 0;
-        p = next(p);
+        cout << " Jumlah data paling sedikit dimiliki oleh Kecamatan \""<< info(temp) << "\" dengan jumlah data driver sebanyak : "<< nilaiMin << endl;
     }
-    cout << "   ";
-    cout << "Jumlah data paling sedikit dimiliki oleh parent \""<< info(temp) << "\" dengan jumlah data driver sebanyak : "<< nilaiMin << endl;
-    cout << endl;
 };
 
 //bool findParentChild(List_p LP,List_c LC) {
