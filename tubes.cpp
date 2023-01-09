@@ -87,33 +87,33 @@ void deleteKecematan(List_p &LP, List_c &LC, address_p &P, infotype_p x){
 
 
 void printInfo(List_p L) {
-    cout << " " << left << setw(30) << setfill('=') << "";
+    cout << " " << left << setw(35) << setfill('=') << "";
     cout << endl;
-    cout << left << setw(30) << setfill(' ') << " | DAFTAR KECAMATAN";
+    cout << left << setw(35) << setfill(' ') << " | DAFTAR KECAMATAN";
     cout << "|" << endl;
-    cout << " " << left << setw(30) << setfill('=') << "";
+    cout << " " << left << setw(35) << setfill('=') << "";
     cout << endl;
-    cout << left << setw(30) << setfill(' ') << " |";
+    cout << left << setw(35) << setfill(' ') << " |";
     cout << "|" << endl;
 
      if(first(L) == NULL) {
-        cout << left << setw(30) << setfill(' ') << " | Tidak Ada Data Kecamatan";
+        cout << left << setw(35) << setfill(' ') << " | Tidak Ada Data Kecamatan";
             cout << "|" << endl;
-            cout << left << setw(30) << setfill(' ') << " |";
+            cout << left << setw(35) << setfill(' ') << " |";
             cout << "|" << endl;
-            cout << " " << left << setw(30) << setfill('=') << "";
+            cout << " " << left << setw(35) << setfill('=') << "";
      } else {
         address_p P = first(L);
         int i = 1;
         while(P!=NULL){
-            cout << left <<  " | [" << i << "] " << setw(23) << setfill(' ') << info(P);
+            cout << left <<  " | [" << i << "] " << setw(28) << setfill(' ') << info(P);
             cout << "|" << endl;
              P = next(P);
              i++;
          };
-         cout << left << setw(30) << setfill(' ') << " |";
+         cout << left << setw(35) << setfill(' ') << " |";
          cout << "|" << endl;
-         cout << " " << left << setw(30) << setfill('=') << "";
+         cout << " " << left << setw(35) << setfill('=') << "";
      }
      cout<<endl;
 };
@@ -165,46 +165,46 @@ void deleteFirst(List_c &L, address_c &P) {
 };
 
 void printInfo(List_c L) {
-    cout << " " << left << setw(40) << setfill('=') << "";
+    cout << " " << left << setw(45) << setfill('=') << "";
     cout << endl;
-    cout << left << setw(40) << setfill(' ') << " | DAFTAR DRIVER";
+    cout << left << setw(45) << setfill(' ') << " | DAFTAR DRIVER";
     cout << "|" << endl;
-    cout << " " << left << setw(40) << setfill('=') << "";
+    cout << " " << left << setw(45) << setfill('=') << "";
     cout << endl;
-    cout << left << setw(40) << setfill(' ') << " |";
+    cout << left << setw(45) << setfill(' ') << " |";
     cout << "|" << endl;
 
      if(first(L) == NULL) {
-        cout << left << setw(40) << setfill(' ') << " | Tidak Ada Data Driver";
+        cout << left << setw(45) << setfill(' ') << " | Tidak Ada Data Driver";
             cout << "|" << endl;
-            cout << left << setw(40) << setfill(' ') << " |";
+            cout << left << setw(45) << setfill(' ') << " |";
             cout << "|" << endl;
-            cout << " " << left << setw(40) << setfill('=') << "";
+            cout << " " << left << setw(45) << setfill('=') << "";
      } else {
         address_c P = first(L);
         int i = 1;
         while(P!=NULL){
-                cout << left << " | [" << i << "]  Nama Driver    : " << setw(15) << setfill(' ') << info(P).nama;
+                cout << left << " | [" << i << "]  Nama Driver    : " << setw(20) << setfill(' ') << info(P).nama;
                 cout << "|" << endl;
-                cout << left << " |      Tempat Tinggal : " << setw(15) << setfill(' ') << info(P).tempatTinggal;
+                cout << left << " |      Tempat Tinggal : " << setw(20) << setfill(' ') << info(P).tempatTinggal;
                 cout << "|" << endl;
-                cout << left << " |      Nopol          : " << setw(15) << setfill(' ') << info(P).nopol;
+                cout << left << " |      Nopol          : " << setw(20) << setfill(' ') << info(P).nopol;
                 cout << "|" << endl;
                 if(parent(P) != NULL) {
-                    cout << left << " |      Kecamatan      : " << setw(15) << setfill(' ') << info(parent(P));
+                    cout << left << " |      Kecamatan      : " << setw(20) << setfill(' ') << info(parent(P));
                     cout << "|" << endl;
                 } else {
-                    cout << left << " |      Kecamatan      : " << setw(15) << setfill(' ') << "Belum Terdaftar";
+                    cout << left << " |      Kecamatan      : " << setw(20) << setfill(' ') << "Belum Terdaftar";
                     cout << "|" << endl;
                 }
                 i++;
                 P = next(P);
-                cout << left << setw(40) << setfill(' ') << " |";
+                cout << left << setw(45) << setfill(' ') << " |";
                 cout << "|" << endl;
          };
-         cout << left << setw(40) << setfill(' ') << " |";
+         cout << left << setw(45) << setfill(' ') << " |";
          cout << "|" << endl;
-         cout << " " << left << setw(40) << setfill('=') << "";
+         cout << " " << left << setw(45) << setfill('=') << "";
      }
      cout<<endl;
 };
@@ -307,15 +307,15 @@ void disconnect(address_c &C) {
 
 void printRelasi(List_p LP, List_c LC,address_p P) {
     address_c C = first(LC);
-    cout << " " << left << setw(40) << setfill('=') << "";
+    cout << " " << left << setw(45) << setfill('=') << "";
     cout << endl;
-    cout << left << " | Kecamatan " << setw(27) << setfill(' ') << info(P);
+    cout << left << " | Kecamatan " << setw(32) << setfill(' ') << info(P);
     cout << "|" << endl;
-    cout << " " << left << setw(40) << setfill('=') << "";
+    cout << " " << left << setw(45) << setfill('=') << "";
     cout << endl;
-    cout << left << setw(40) << setfill(' ') << " |";
+    cout << left << setw(45) << setfill(' ') << " |";
     cout << "|" << endl;
-    cout << left << setw(40) << setfill(' ') << " |";
+    cout << left << setw(45) << setfill(' ') << " |";
     cout << "|" << endl;
 
     bool adaDriver = false;
@@ -323,31 +323,31 @@ void printRelasi(List_p LP, List_c LC,address_p P) {
         while(C!=NULL) {
             if(parent(C) == P) {
                 adaDriver = true;
-                cout << left << " | [" << i << "]  Nama Driver    : " << setw(15) << setfill(' ') << info(C).nama;
+                cout << left << " | [" << i << "]  Nama Driver    : " << setw(20) << setfill(' ') << info(C).nama;
                 cout << "|" << endl;
-                cout << left << " |      Tempat Tinggal : " << setw(15) << setfill(' ') << info(C).tempatTinggal;
+                cout << left << " |      Tempat Tinggal : " << setw(20) << setfill(' ') << info(C).tempatTinggal;
                 cout << "|" << endl;
-                cout << left << " |      Nopol          : " << setw(15) << setfill(' ') << info(C).nopol;
+                cout << left << " |      Nopol          : " << setw(20) << setfill(' ') << info(C).nopol;
                 cout << "|" << endl;
                 i++;
-                cout << left << setw(40) << setfill(' ') << " |";
+                cout << left << setw(45) << setfill(' ') << " |";
                 cout << "|" << endl;
             }
             C = next(C);
         }
 
         if(adaDriver) {
-            cout << left << setw(40) << setfill(' ') << " |";
+            cout << left << setw(45) << setfill(' ') << " |";
             cout << "|" << endl;
-            cout << " " << left << setw(40) << setfill('=') << "";
+            cout << " " << left << setw(45) << setfill('=') << "";
         } else {
-            cout << left << setw(40) << setfill(' ') << " | Tidak Ada Driver";
+            cout << left << setw(45) << setfill(' ') << " | Tidak Ada Driver";
             cout << "|" << endl;
-            cout << left << setw(40) << setfill(' ') << " |";
+            cout << left << setw(45) << setfill(' ') << " |";
             cout << "|" << endl;
-            cout << left << setw(40) << setfill(' ') << " |";
+            cout << left << setw(45) << setfill(' ') << " |";
             cout << "|" << endl;
-            cout << " " << left << setw(40) << setfill('=') << "";
+            cout << " " << left << setw(45) << setfill('=') << "";
         }
         cout << endl;
 }

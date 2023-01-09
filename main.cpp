@@ -48,7 +48,9 @@ int main()
                     cout << " Masukkan Nama Kecamatan   : " << endl;
                     while(i <= n) {
                         cout << " [" << i << "] ";
-                        cin >> inputKecamatan;
+                        //cin >> inputKecamatan;
+                        cin.ignore();
+                        getline(cin, inputKecamatan);
                         insertFirst(kecamatan,alokasiP(inputKecamatan));
                         i++;
                     }
@@ -96,11 +98,15 @@ int main()
                         while(i <= n) {
                             cout << " [" << i << "]" <<endl;
                             cout <<  " Nama Driver    : ";
-                            cin >> inputNama;
+                            cin.ignore();
+                            getline(cin, inputNama);
+
                             cout << " Tempat Tinggal : ";
-                            cin >> inputTempatTinggal;
+                            getline(cin, inputTempatTinggal);
+
                             cout << " Input Nopol    : ";
-                            cin >> inputNopol;
+                            cin.ignore();
+                            getline(cin, inputNopol);
 
                             cout << endl;
 
