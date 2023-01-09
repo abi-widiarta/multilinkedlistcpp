@@ -28,11 +28,12 @@ struct List_p {
 void createList(List_p &L);
 address_p alokasiP(infotype_p x);
 void insertFirst(List_p &L, address_p P);
-void deleteFirst(List_p &L, address_p &P);
 void printInfo(List_p L);
+address_p findElement(List_p L, infotype_p x);
+void deleteFirst(List_p &L, address_p &P);
 void deleteLast(List_p &LP, address_p &P);
 void deleteMiddle(List_p &L, address_p &x);
-address_p findElement(List_p L, infotype_p x);
+
 
 // FOR CHILD
 
@@ -57,19 +58,21 @@ struct List_c {
 void createList(List_c &L);
 address_c alokasiC(infotype_c x);
 void insertFirst(List_c &L, address_c P);
-void deleteFirst(List_c &L, address_c &P);
 void printInfo(List_c L);
 address_c findElement(List_c L, infotype_c x);
 address_c findNopol(List_c L, infotype_c x);
-void deleteDriver(List_c &L, address_c &P, string namaDriver, string nopolDriver);
-void deleteLast(List_c &L, address_c &P);
+void deleteFirst(List_c &L, address_c &P);
 void deleteMiddle(List_c &L, address_c &x);
+void deleteLast(List_c &L, address_c &P);
+void deleteDriver(List_c &L, address_c &P, string namaDriver, string nopolDriver);
 
 // FOR RELASI
 bool checkParent(List_p L);
 void connect(address_p &P, address_c &C);
 void disconnect(address_c &C);
 void printRelasi(List_p LP, List_c LC,address_p P);
+void deleteFirstParent(List_p &LP, List_c &LC, address_p &P);
+void deleteKecematan(List_p &LP, List_c &LC, address_p &P, infotype_p x);
 
 
 // FOR MENU
@@ -79,10 +82,7 @@ void countParent(List_p LP);
 void countChild(List_c LC);
 void countMax(List_p LP, List_c LC);
 void countMin(List_p LP, List_c LC);
-bool findParentChild(List_p LP,List_c LC);
 
-void deleteFirstParent(List_p &LP, List_c &LC, address_p &P);
-void deleteKecematan(List_p &LP, List_c &LC, address_p &P, infotype_p x);
 
 
 #endif // TUBES_H_INCLUDED
