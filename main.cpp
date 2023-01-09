@@ -93,8 +93,7 @@ int main()
                         cout << " Masukkan Jumlah Driver : ";
                         cin >> n;
                         cout << endl;
-                        cout << " Nb : Gunakan \"_\" untuk spasi" << endl;
-                        cout << endl;
+
                         while(i <= n) {
                             cout << " [" << i << "]" <<endl;
                             cout <<  " Nama Driver    : ";
@@ -213,7 +212,7 @@ int main()
                 {
                     countParent(kecamatan);
                     countChild(driver);
-                    cout << " Tekan ENTER untuk kembali ke menu...";
+                    cout << endl << " Tekan ENTER untuk kembali ke menu...";
                     break;
                 }
 

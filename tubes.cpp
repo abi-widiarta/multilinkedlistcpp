@@ -173,6 +173,8 @@ void printInfo(List_c L) {
     cout << endl;
     cout << left << setw(45) << setfill(' ') << " |";
     cout << "|" << endl;
+    cout << left << setw(45) << setfill(' ') << " |";
+    cout << "|" << endl;
 
      if(first(L) == NULL) {
         cout << left << setw(45) << setfill(' ') << " | Tidak Ada Data Driver";
