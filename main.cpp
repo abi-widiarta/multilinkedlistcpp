@@ -46,10 +46,9 @@ int main()
                     cin >> n;
                     cout << endl;
                     cout << " Masukkan Nama Kecamatan   : " << endl;
+                    cin.ignore();
                     while(i <= n) {
                         cout << " [" << i << "] ";
-                        //cin >> inputKecamatan;
-                        cin.ignore();
                         getline(cin, inputKecamatan);
                         insertFirst(kecamatan,alokasiP(inputKecamatan));
                         i++;
@@ -94,17 +93,16 @@ int main()
                         cin >> n;
                         cout << endl;
 
+                        cin.ignore();
                         while(i <= n) {
                             cout << " [" << i << "]" <<endl;
                             cout <<  " Nama Driver    : ";
-                            cin.ignore();
                             getline(cin, inputNama);
 
                             cout << " Tempat Tinggal : ";
                             getline(cin, inputTempatTinggal);
 
                             cout << " Input Nopol    : ";
-                            cin.ignore();
                             getline(cin, inputNopol);
 
                             cout << endl;
@@ -181,13 +179,13 @@ int main()
                     address_c p;
                     printInfo(driver);
 
+                    cin.ignore();
                     if(first(driver) != NULL) {
                         cout << " Masukkan Detail Driver Yang Ingin Dihapus!" << endl;
                         cout << endl << " Nama Driver  : ";
-                        cin >> namaDriver;
+                        getline(cin,namaDriver);
                         cout << " Nopol Driver : ";
-                        cin >> nopolDriver;
-
+                        getline(cin,nopolDriver);
                         deleteDriver(driver,p,namaDriver,nopolDriver);
                     }
 
@@ -221,12 +219,14 @@ int main()
                     infotype_c x;
                     cout << " MASUKKAN NOPOL DRIVER : " << endl;
                     cout << " > ";
-                    cin >> x.nopol;
+                    cin.ignore();
+                    getline(cin, x.nopol);
                     address_c target = findNopol(driver, x);
 
                     if(target == NULL) {
                         cout << endl << " Driver tidak ditemukan!" << endl;
                     } else {
+                        cout << endl;
                         cout << " =======================" << endl;
                         cout << " +  Driver Ditemukan!  +" << endl;
                         cout << " =======================" << endl << endl;
@@ -258,7 +258,7 @@ int main()
         pilihan = selectMenu_1301213196();
     }
     if (pilihan == 0) {
-        cout << endl << " ANDA TELAH KELUAR DARI PROGRAM!" << endl;
+        cout << " ANDA TELAH KELUAR DARI PROGRAM!" << endl;
     }
 
     return 0;
